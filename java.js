@@ -29,10 +29,38 @@ myLibrary.forEach((library) => {
     for (const property in library) {
         const bookDeets = document.createElement("div");
         output.appendChild(bookDeets);
-        bookDeets.textContent = (`${property}: ${library[property]}`)
+        bookDeets.textContent = (`${property}: ${library[property]}`);
+       
     }
+
+     let id = crypto.randomUUID();
+
+    const iddiv = document.createElement("div");
+    iddiv.classList.add("theId")
+    iddiv.setAttribute("data-number", id);
+    output.appendChild(iddiv)
+
+
+
+const button = document.createElement("button");
+        button.textContent = "Remove";
+        output.appendChild(button);
+
+        
+        const theId = document.querySelector(".theId");
+
+function theButton() {
+      button.addEventListener("click", () => {
+            console.log(theId.dataset.number)
+        })
+}
+
+    theButton();
 });
+
 };
+
+
 
 
 
@@ -58,6 +86,9 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     addBookToLibrary(t.value, a.value, p.value);
     arrayBook();
+    t.value = "";
+    a.value = "";
+    p.value = "";
     dialog.close();
 });
 

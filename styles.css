@@ -12,4 +12,12 @@
     padding: 10px;
     background-color: rgb(221, 109, 109);
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+output {
+    border: 1px solid blue;
 }
