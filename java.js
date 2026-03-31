@@ -1,23 +1,24 @@
 const myLibrary = [
-    new Book("Ikigai", "Joseph", 1),
-    new Book("The Daily Stoic", "Ryan Holiday", 78),
+    new Book("Ikigai", "Joseph", 1, false),
+    new Book("The Daily Stoic", "Ryan Holiday", 78, true),
 ];
 
-function Book(title, author, pages){
+function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.id = crypto.randomUUID();
-    this.read = true;
-    
+    this.read = read;
 }
+
+
 
 Book.prototype.toggleRead = function() {
     this.read = !this.read;
 }
 
-function addBookToLibrary(a, b, c){
-    const theBook = new Book(a, b, c);
+function addBookToLibrary(a, b, c, d){
+    const theBook = new Book(a, b, c, d);
     myLibrary.push(theBook);
 }
 
@@ -39,12 +40,15 @@ myLibrary.forEach((library) => {
     for (const property in library) {
         if (property === "id") continue;
         if (property === "toggleRead") continue;
+        if (property === "read") continue;
 
         const bookDeets = document.createElement("div");
         output.appendChild(bookDeets);
         bookDeets.textContent = (`${property}: ${library[property]}`);
     
     }
+
+   
 
     const toggleBtn = document.createElement("button");
     toggleBtn.textContent = library.read ? "Read" : "Not Read";
@@ -67,6 +71,8 @@ myLibrary.forEach((library) => {
         myLibrary.splice(index, 1);
         arrayBook();
     });
+
+
 });
 };
 
@@ -84,6 +90,7 @@ const submitBtn = document.querySelector("#submit");
 let t = document.querySelector("#title");
 let a = document.querySelector("#author");
 let p = document.querySelector("#pages");
+let status = document.querySelector("#read");
 
 const form = document.getElementById("myForm");
 
@@ -97,10 +104,11 @@ closeBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
-    addBookToLibrary(t.value, a.value, p.value);
+    addBookToLibrary(t.value, a.value, p.value, status.checked);
     arrayBook();
     t.value = "";
     a.value = "";
     p.value = "";
+    status.checked = false;
     dialog.close();
 });
